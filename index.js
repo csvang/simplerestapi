@@ -1,6 +1,6 @@
 const express = require('express');
 const fs = require('fs');
-const data = require('./data.json');
+let data = require('./data.json');
 
 let app = express();
 
@@ -9,10 +9,6 @@ app.use(express.urlencoded({
 }))
 
 app.use(express.json());
-
-// let file = editJsonFile(`${__dirname}/data.json`, {
-//     autosave: true
-// });
 
 app.get('/', (req,res) => {
     return res.send(data);
@@ -38,19 +34,19 @@ app.patch('/:id', (req,res) => {
     return res.send(find);
 })
 
-// app.delete('/:id', (req,res) => {
-//     let find = data.find( (d) => d.id === parseInt(req.params.id) );
+app.delete('/:id', (req,res) => {
+    let find = data.filter( (d) => d.id != parseInt(req.params.id) );
     
-//     if (find) {
-//         find.active = req.body.active;
-//     } else {
-//         return res.send(`${req.body.id} not found!`);
-//     }
+    if (find) {
+        data = find;
+    } else {
+        return res.send(`${req.params.id} not found!`);
+    }
 
-//     saveData();
+    saveData();
 
-//     return res.send(find);
-// });
+    return res.send(data);
+});
 
 app.listen(3000, () => {
     console.log('Running!');
@@ -61,7 +57,6 @@ function saveData(){
         JSON.stringify(data), 
         err => { 
             if (err) throw err
-            console.log('Written!');
         });
 }
 
