@@ -12,4 +12,4 @@ A project to host a simple Rest API solution.  This will perform CRUD operations
 `docker run -p 3000:3000 -d <name>/simplerestapi`
 
 ## RestAPI Client
-* Feel free to import the (Postman config)[./postman/postman_simplerestapi.json] for CRUD examples.
+* Feel free to import the [Postman config](https://github.com/csvang/simplerestapi/blob/master/postman/postman_simplerestapi.json) for CRUD examples.
